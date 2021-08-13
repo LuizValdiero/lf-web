@@ -4,9 +4,6 @@ Install: npm, nodejs and Angular cli
 
 Run: npm i && ng serve
 
-#### livro Aho pag 62 contrução de uma AFN apartir de uma expressão regular
-
-### er -> afd pag 70, algoritmo 3.5
 
 ## T1
 
@@ -14,12 +11,11 @@ Run: npm i && ng serve
 
 - [X] União de AF
 
-- [ ] (g) Conversão de ER para AFD (usando o algoritmo baseado em árvore sintática - Livro Aho - seção 3.9)
+- [x] (g) Conversão de ER para AFD (usando o algoritmo baseado em árvore sintática - Livro Aho - seção 3.9)
   pdf analise sintatica
   4 funcoes: anulavel, first_pos, follow_pos, last_pos
 
-
-- [ ] (e) Minimização de AFD
+- [ ] criação da tabela de símbolos
 
 ---
 
