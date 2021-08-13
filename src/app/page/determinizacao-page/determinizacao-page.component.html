@@ -2,10 +2,24 @@
   <h1>Determinização de autômatos</h1>
   <h3>Autômato de entrada:</h3>
   <textarea formControlName="input"></textarea>
+  <div style="margin-top: 0.1em; display: block;">
+    <button type="button" (click)="save(form.value.input)" [disabled]="form.value.input.valid">
+      <fa-icon icon="save"></fa-icon>
+    </button>
+  </div>
   <section class="buttons-container">
     <button type="submit" [disabled]="!form.valid">
       Determinizar
     </button>
   </section>
 </form>
-<textarea disabled>{{output}}</textarea>
+<textarea [(ngModel)]="output"></textarea>
+<section class="buttons-container">
+  <button ngxClipboard [cbContent]="output" [disabled]="output === ''">
+    <fa-icon icon="copy"></fa-icon>
+  </button>
+  <button type="button" (click)="save(output)" [disabled]="output === ''">
+    <fa-icon icon="save"></fa-icon>
+  </button>
+</section>
+

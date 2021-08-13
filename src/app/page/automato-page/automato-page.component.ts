@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AF, isAFD, joinAf, Production } from 'src/app/models/automato';
+import { AF, joinAf } from 'src/app/models/automato';
 import { AfParserService } from 'src/app/services/af-parser.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 
 @Component({
@@ -40,21 +41,29 @@ export class AutomatoPageComponent implements OnInit {
 
 
 
-  constructor(private readonly afParser: AfParserService) {}
+  constructor(
+    private readonly afParser: AfParserService,
+    private readonly storageService: StorageService
+  ) {}
 
   ngOnInit(): void {
   }
 
   join = () => {
     const af1Str: string = this.form.value.af1In
-    const af2Str = this.form.value.af2In
+    const af2Str: string = this.form.value.af2In
 
-    const af1 = this.afParser.parse(af1Str)
-    const af2 = this.afParser.parse(af2Str)
+    const af1: AF = this.afParser.parse(af1Str)
+    const af2: AF = this.afParser.parse(af2Str)
 
-    const afOutput = joinAf(af1, af2)
+    const afOutput: AF = joinAf(af1, af2)
 
     this.output = this.afParser.valueOf(afOutput)
+  }
+
+  save(save: string) {
+    const name = save.split('\n')[0]
+    this.storageService.submitData(name, save)
   }
 
 }

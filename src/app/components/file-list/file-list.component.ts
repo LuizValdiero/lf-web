@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataFile, StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-file-list',
@@ -25,17 +26,30 @@ export class FileListComponent implements OnInit {
   + '\n' + 'q0,b,q1'
   + '\n' + 'q1,b,q0'
 
-  texts: string[] = [
-    this.af1Str,
-    this.af2Str
-  ]
+  files: DataFile[] = []
 
-  constructor() { }
+  constructor(private readonly storageService: StorageService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.refresh()
+    if (this.files.length <= 0) {
+      this.storageService.submitData('AFD AsMultiploDe2', this.af1Str)
+      this.storageService.submitData('AFD ImparDeBs', this.af2Str)
+      await this.refresh()
+    }
   }
 
   remove = (index: number) => {
-    this.texts.splice(index, 1)
+    this.files.splice(index, 1)
+  }
+
+  refresh = async (): Promise<void> => {
+    this.files = await this.storageService.getAll()
+    console.log(this.files)
+  }
+
+  delete = async (file: DataFile): Promise<void> => {
+    await this.storageService.delete(file)
+    this.refresh()
   }
 }

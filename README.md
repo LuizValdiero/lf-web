@@ -1,5 +1,32 @@
 # LfWeb
 
+Install: npm, nodejs and Angular cli
+
+Run: npm i && ng serve
+
+#### livro Aho pag 62 contrução de uma AFN apartir de uma expressão regular
+
+### er -> afd pag 70, algoritmo 3.5
+
+## T1
+
+- [x] Conversão de AFND (com e sem ε) para AFD
+
+- [X] União de AF
+
+- [ ] (g) Conversão de ER para AFD (usando o algoritmo baseado em árvore sintática - Livro Aho - seção 3.9)
+  pdf analise sintatica
+  4 funcoes: anulavel, first_pos, follow_pos, last_pos
+
+
+- [ ] (e) Minimização de AFD
+
+---
+
+- [x] (d) Reconhecimento de sentenças em AF (caracter a carecter)
+
+---
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
 
 ## Development server

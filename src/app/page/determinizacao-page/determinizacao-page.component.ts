@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { determineAf } from 'src/app/models/automato';
 import { AfParserService } from 'src/app/services/af-parser.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-determinizacao-page',
@@ -19,7 +20,8 @@ export class DeterminizacaoPageComponent implements OnInit {
 
   constructor(
     private readonly afParser: AfParserService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly storageService: StorageService
   ) {
     const navigation = this.router.getCurrentNavigation()
     if(navigation) {
@@ -37,5 +39,10 @@ export class DeterminizacaoPageComponent implements OnInit {
     const afd = determineAf(af)
 
     this.output = this.afParser.valueOf(afd)
+  }
+
+  save(data: string) {
+    const name = data.split('\n')[0]
+    this.storageService.submitData(name, data)
   }
 }

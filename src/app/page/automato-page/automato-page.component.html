@@ -4,10 +4,16 @@
     <div>
       <h3>Autômatos 1:</h3>
       <textarea formControlName="af1In"></textarea>
+      <button type="button" (click)="save(form.value.af1In)" [disabled]="form.value.af1In.valid">
+        <fa-icon icon="save"></fa-icon>
+      </button>
     </div>
     <div>
       <h3>Autômatos 2:</h3>
       <textarea formControlName="af2In"></textarea>
+      <button type="button" (click)="save(form.value.af2In)" [disabled]="form.value.af2In.valid">
+        <fa-icon icon="save"></fa-icon>
+      </button>
     </div>
   </div>
   <section class="buttons-container">
@@ -16,10 +22,13 @@
     </button>
   </section>
 </form>
-<textarea disabled>{{output}}</textarea>
+<textarea [(ngModel)]="output"></textarea>
 <section class="buttons-container">
   <button ngxClipboard [cbContent]="output" [disabled]="output === ''">
     <fa-icon icon="copy"></fa-icon>
+  </button>
+  <button (click)="save(output)" [disabled]="output === ''">
+    <fa-icon icon="save"></fa-icon>
   </button>
   <button [routerLink]="'/af/determinizacao'" [state]="{input: output}" [disabled]="output === ''">
     Determinizar

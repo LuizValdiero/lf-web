@@ -1,21 +1,17 @@
 <h3>Arquivos</h3>
-<button >
-  <fa-icon icon="plus"></fa-icon>
-</button>
-<button>
-  <fa-icon icon="paste"></fa-icon>
-</button>
-<button>
-  <fa-icon icon="save"></fa-icon>
+<button (click)="refresh()">
+  <fa-icon icon="sync"></fa-icon>
 </button>
 <ul>
-  <li *ngFor="let text of texts, let i = index">
-    {{text.split('\n')[0]}}
+  <li *ngFor="let file of files, let i = index">
+    <span style="text-overflow: ellipsis; width: 6em; overflow: hidden;">
+      {{file.name}}
+    </span>
     <section>
-      <button ngxClipboard [cbContent]="text" (click)="remove(i)">
+      <button ngxClipboard [cbContent]="file.file" (click)="delete(file) && remove(i)">
         <fa-icon icon="trash"></fa-icon>
       </button>
-      <button ngxClipboard [cbContent]="text">
+      <button ngxClipboard [cbContent]="file.file">
         <fa-icon icon="copy"></fa-icon>
       </button>
     </section>

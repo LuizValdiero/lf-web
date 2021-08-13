@@ -2,10 +2,24 @@
   <h1>Conversão de expressão regular para autômato</h1>
   <h3>Insira uma  Expressão regular</h3>
   <textarea formControlName="input"></textarea>
+  <div style="margin-top: 0.1em; display: block;">
+    <button type="button" (click)="saveER(form.value.input)" [disabled]="form.value.input.valid">
+      <fa-icon icon="save"></fa-icon>
+    </button>
+  </div>
+
   <section class="buttons-container">
     <button type="submit" [disabled]="!form.valid">
       Converter
     </button>
   </section>
 </form>
-<textarea disabled>{{output}}</textarea>
+<textarea [(ngModel)]="output"></textarea>
+<div style="margin-top: 0.1em; display: block;">
+  <button ngxClipboard [cbContent]="output" [disabled]="output === ''">
+    <fa-icon icon="copy"></fa-icon>
+  </button>
+  <button type="button" (click)="saveAF(output)" [disabled]="output === ''">
+    <fa-icon icon="save"></fa-icon>
+  </button>
+</div>
