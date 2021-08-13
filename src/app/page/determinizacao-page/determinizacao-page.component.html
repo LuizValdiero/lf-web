@@ -1,0 +1,11 @@
+<form [formGroup]="form" (ngSubmit)="determine()">
+  <h1>Determinização de autômatos</h1>
+  <h3>Autômato de entrada:</h3>
+  <textarea formControlName="input"></textarea>
+  <section class="buttons-container">
+    <button type="submit" [disabled]="!form.valid">
+      Determinizar
+    </button>
+  </section>
+</form>
+<textarea disabled>{{output}}</textarea>

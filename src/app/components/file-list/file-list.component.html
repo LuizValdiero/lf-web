@@ -1,0 +1,23 @@
+<h3>Arquivos</h3>
+<button >
+  <fa-icon icon="plus"></fa-icon>
+</button>
+<button>
+  <fa-icon icon="paste"></fa-icon>
+</button>
+<button>
+  <fa-icon icon="save"></fa-icon>
+</button>
+<ul>
+  <li *ngFor="let text of texts, let i = index">
+    {{text.split('\n')[0]}}
+    <section>
+      <button ngxClipboard [cbContent]="text" (click)="remove(i)">
+        <fa-icon icon="trash"></fa-icon>
+      </button>
+      <button ngxClipboard [cbContent]="text">
+        <fa-icon icon="copy"></fa-icon>
+      </button>
+    </section>
+  </li>
+</ul>

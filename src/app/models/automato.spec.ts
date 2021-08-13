@@ -1,5 +1,5 @@
 import { AF, Alphabet, StateAF } from './automato';
-import { compute, isAFD, transformAfToDeterministic, production_to_map } from './automato';
+import { compute, isAFD, transformAfToDeterministic, productionToMap } from './automato';
 
 const makeAFD = (): AF => {
   const af: AF =  {
@@ -37,19 +37,19 @@ const makeAFND1Determinized = (): AF => {
   const afd: AF = {
     name: 'afnd1',
     alphabet: ['a','b','c'],
-    states: ['p,q','q,r','p,q,r','r'],
-    start: 'p,q',
-    final: ['p,q,r','q,r','r'],
+    states: ['p_q','q_r','p_q_r','r'],
+    start: 'p_q',
+    final: ['p_q_r','q_r','r'],
     productions: [
-      [['p,q','a'],['p,q']],
-      [['p,q','b'],['q,r']],
-      [['p,q','c'],['p,q,r']],
-      [['p,q,r','a'],['p,q']],
-      [['p,q,r','b'],['q,r']],
-      [['p,q,r','c'],['p,q,r']],
-      [['q,r','a'],['p,q']],
-      [['q,r','b'],['r']],
-      [['q,r','c'],['p,q']]
+      [['p_q','a'],['p_q']],
+      [['p_q','b'],['q_r']],
+      [['p_q','c'],['p_q_r']],
+      [['p_q_r','a'],['p_q']],
+      [['p_q_r','b'],['q_r']],
+      [['p_q_r','c'],['p_q_r']],
+      [['q_r','a'],['p_q']],
+      [['q_r','b'],['r']],
+      [['q_r','c'],['p_q']]
     ]}
     return afd
 }
@@ -78,7 +78,6 @@ describe('Automato', () => {
   it('should create an instance', () => {
     const af: AF = makeAFD()
     const map = new Map<[StateAF,Alphabet], StateAF[]>(af.productions)
-    //console.log(JSON.stringify(af))
     expect(af).toBeTruthy();
     expect(af.name).toEqual('par_de_a')
     expect(af.alphabet).toEqual(['a'])
@@ -134,7 +133,7 @@ describe('Automato', () => {
 
   it('create_epsilon_fecho should create &-fecho correctly', () => {
     const afnd: AF = makeAFND1()
-    const prodMap = production_to_map(afnd.productions)
+    const prodMap = productionToMap(afnd.productions)
     const afd = transformAfToDeterministic(afnd, prodMap)
 
     const expected: AF = makeAFND1Determinized()
@@ -145,5 +144,4 @@ describe('Automato', () => {
     expect(afd.final).toEqual(expected.final)
     expect(afd.productions).toEqual(expected.productions)
   })
-
 });

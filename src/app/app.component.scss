@@ -1,0 +1,45 @@
+
+div.container {
+  min-width: 800px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 75%;
+	grid-template-rows: 4em auto;
+  grid-template-areas: "header header" "nav content";
+  overflow-y: auto;
+  header {
+    grid-area: header;
+    justify-content: center;
+    padding: 1em;
+  }
+
+  .navbar {
+    gap: 1em;
+    font-size: 0.7em;
+    & > app-file-list,
+    & > app-menu {
+      padding: 0.2em;
+      border: 0.1em solid #eee;
+      border-radius: 0.5em;
+      max-height: 15em;
+    }
+    grid-area: nav;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+  }
+  section.content {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-area: content;
+    padding: 0em 4em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+
+  .container {
+    width: 425px;
+  }
+}

@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="join()">
+  <h1>União de autômato</h1>
+  <div class="automato-input-container">
+    <div>
+      <h3>Autômatos 1:</h3>
+      <textarea formControlName="af1In"></textarea>
+    </div>
+    <div>
+      <h3>Autômatos 2:</h3>
+      <textarea formControlName="af2In"></textarea>
+    </div>
+  </div>
+  <section class="buttons-container">
+    <button type="submit" [disabled]="!form.valid">
+      Unir
+    </button>
+  </section>
+</form>
+<textarea disabled>{{output}}</textarea>
+<section class="buttons-container">
+  <button ngxClipboard [cbContent]="output" [disabled]="output === ''">
+    <fa-icon icon="copy"></fa-icon>
+  </button>
+  <button [routerLink]="'/af/determinizacao'" [state]="{input: output}" [disabled]="output === ''">
+    Determinizar
+  </button>
+</section>

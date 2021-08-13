@@ -1,0 +1,11 @@
+<form [formGroup]="form" (ngSubmit)="convertToAf()">
+  <h1>Conversão de expressão regular para autômato</h1>
+  <h3>Insira uma  Expressão regular</h3>
+  <textarea formControlName="input"></textarea>
+  <section class="buttons-container">
+    <button type="submit" [disabled]="!form.valid">
+      Converter
+    </button>
+  </section>
+</form>
+<textarea disabled>{{output}}</textarea>

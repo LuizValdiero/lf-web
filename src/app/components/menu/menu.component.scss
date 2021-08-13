@@ -1,0 +1,11 @@
+a {
+  margin: 0.5em;
+  background-color: rgba(85, 187, 255, 0.3);
+  &:hover {
+    background-color: rgba(85, 187, 255, 0.25);
+  }
+  padding: 0.5em;
+  display: block;
+  border-radius: 3px;
+  text-decoration: solid;
+}
