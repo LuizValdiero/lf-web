@@ -1,5 +1,9 @@
 # LfWeb
 
+---
+## video T1: https://www.youtube.com/watch?v=ykNPDR7zjkA
+---
+
 Install: npm, nodejs and Angular cli
 
 Run: npm i && ng serve
@@ -11,7 +15,7 @@ Run: npm i && ng serve
 
 - [X] União de AF
 
-- [x] (g) Conversão de ER para AFD (usando o algoritmo baseado em árvore sintática - Livro Aho - seção 3.9)
+- [x] Conversão de ER para AFD (usando o algoritmo baseado em árvore sintática - Livro Aho - seção 3.9)
   pdf analise sintatica
   4 funcoes: anulavel, first_pos, follow_pos, last_pos
 
