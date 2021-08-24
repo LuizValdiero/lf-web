@@ -1,12 +1,27 @@
-<a [routerLink]="'/'">
-  Expressão regular
+<a (click)="openCloseTools()">
+  Ferramentas
 </a>
-<a [routerLink]="'/af'">
-  União de autômatos
-</a>
-<a [routerLink]="'/af/determinizacao'">
-  Determinização de autômatos
-</a>
-<a [routerLink]="'/la'">
+<div *ngIf="showTools">
+  <a [routerLink]="'/'">
+    Converter er em afd
+  </a>
+  <a [routerLink]="'/af'">
+    União de autômatos finitos
+  </a>
+  <a [routerLink]="'/af/determinizacao'">
+    Determinização de autômatos finitos
+  </a>
+</div>
+
+<a (click)="openCloseLA()">
   Análise Léxica
 </a>
+<div *ngIf="showLA">
+  <a [routerLink]="'/la/generate'">
+    Gerar Análisador Léxico
+  </a>
+  <a [routerLink]="'/la'">
+    Analisador Léxico
+  </a>
+</div>
+

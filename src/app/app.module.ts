@@ -14,6 +14,7 @@ import { AutomatoPageComponent } from './page/automato-page/automato-page.compon
 import { DeterminizacaoPageComponent } from './page/determinizacao-page/determinizacao-page.component';
 import { FileListComponent } from './components/file-list/file-list.component';
 import { AnalizadorLexicoPageComponent } from './page/analizador-lexico-page/analizador-lexico-page.component';
+import { GeradorAnalizadorLexicoPageComponent } from './page/gerador-analizador-lexico-page/gerador-analizador-lexico-page.component';
 
 
 const dbConfig: DBConfig = {
@@ -24,6 +25,7 @@ const dbConfig: DBConfig = {
     storeConfig: {keyPath: 'id', autoIncrement: true},
     storeSchema: [
       {name: 'name', keypath: 'name', options: { unique: false}},
+      {name: 'type', keypath: 'type', options: { unique: false}},
       {name: 'file', keypath: 'file', options: { unique: false}},
     ]
   }]
@@ -39,6 +41,7 @@ const dbConfig: DBConfig = {
     DeterminizacaoPageComponent,
     FileListComponent,
     AnalizadorLexicoPageComponent,
+    GeradorAnalizadorLexicoPageComponent,
   ],
   imports: [
     BrowserModule,

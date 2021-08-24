@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EntityType } from 'src/app/models/entity-type';
 import { DataFile, StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { DataFile, StorageService } from 'src/app/services/storage.service';
 export class FileListComponent implements OnInit {
 
   af1Str =
-  'AFD AsMultiploDe2'
+  'AsMultiploDe2'
   + '\n' + '2'
   + '\n' + 'q0'
   + '\n' + 'q0'
@@ -18,7 +19,7 @@ export class FileListComponent implements OnInit {
   + '\n' + 'q1,a,q0'
 
   af2Str =
-  'AFD ImparDeBs'
+  'ImparDeBs'
   + '\n' + '2'
   + '\n' + 'q0'
   + '\n' + 'q1'
@@ -33,8 +34,8 @@ export class FileListComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.refresh()
     if (this.files.length <= 0) {
-      this.storageService.submitData('AFD AsMultiploDe2', this.af1Str)
-      this.storageService.submitData('AFD ImparDeBs', this.af2Str)
+      this.storageService.submitData(this.af1Str.split('\n')[0], this.af1Str, EntityType.Af)
+      this.storageService.submitData(this.af2Str.split('\n')[0], this.af2Str, EntityType.Af)
       await this.refresh()
     }
   }

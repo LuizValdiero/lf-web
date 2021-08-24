@@ -1,5 +1,4 @@
 a {
-  margin: 0.5em;
   background-color: rgba(85, 187, 255, 0.3);
   &:hover {
     background-color: rgba(85, 187, 255, 0.25);
@@ -8,4 +7,11 @@ a {
   display: block;
   border-radius: 3px;
   text-decoration: solid;
+}
+div {
+  padding: 0.2em;
+}
+
+a, div {
+  margin: 0.5em;
 }

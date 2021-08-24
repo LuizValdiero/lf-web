@@ -8,24 +8,16 @@
         <fa-icon icon="save"></fa-icon>
       </button>
     </div>
-    <div>
-      <h3>Código Fonte</h3>
-      <textarea formControlName="code"></textarea>
-      <button type="button" (click)="saveCode(form.value.code)" [disabled]="form.value.code.valid">
-        <fa-icon icon="save"></fa-icon>
-      </button>
-    </div>
   </div>
   <section class="buttons-container">
     <button type="submit" [disabled]="!form.valid">
-      Analisar
+      Gerar analisador léxico
     </button>
   </section>
 </form>
-<textarea [(ngModel)]="outputTS"></textarea>
-<textarea [(ngModel)]="outputLS"></textarea>
+<textarea [(ngModel)]="output"></textarea>
 <section class="buttons-container">
-  <button (click)="saveLa()" [disabled]="la === ''">
+  <button (click)="saveLa(output)" [disabled]="output === ''">
     <fa-icon icon="save"></fa-icon>
   </button>
 </section>

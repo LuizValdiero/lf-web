@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AF, joinAf, renameAf } from 'src/app/models/automato';
+import { EntityType } from 'src/app/models/entity-type';
 import { AfParserService } from 'src/app/services/af-parser.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -66,7 +67,7 @@ export class AutomatoPageComponent implements OnInit {
 
   save(save: string) {
     const name = save.split('\n')[0]
-    this.storageService.submitData(name, save)
+    this.storageService.submitData(name, save, EntityType.Af)
   }
 
 }

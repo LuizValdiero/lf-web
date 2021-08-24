@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { determineAf } from 'src/app/models/automato';
+import { EntityType } from 'src/app/models/entity-type';
 import { AfParserService } from 'src/app/services/af-parser.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -43,6 +44,6 @@ export class DeterminizacaoPageComponent implements OnInit {
 
   save(data: string) {
     const name = data.split('\n')[0]
-    this.storageService.submitData(name, data)
+    this.storageService.submitData(name, data, EntityType.Af)
   }
 }

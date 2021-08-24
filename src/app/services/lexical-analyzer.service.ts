@@ -51,7 +51,7 @@ export class LexicalAnalyzerService {
   }
 
   // retornar a TS e lista de tokens
-  analize = (la: LA, code: string): string => {
+  analize = (la: LA, code: string): [Map<string, string[]>, string[]] => {
     let output = ''
     const ts: Map<string, string[]> = new Map()
     const ls: string[] = []
@@ -71,7 +71,7 @@ export class LexicalAnalyzerService {
     })
     console.log('ts', ts)
     console.log('ls', ls)
-    return output
+    return [ts, ls]
   }
 
   private getLexemesFromStr = (input: string): string[] => input.replace(/\s\s*/g, ' ').trim().split(' ')
