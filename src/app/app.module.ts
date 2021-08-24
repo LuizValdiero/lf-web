@@ -13,6 +13,7 @@ import { ExpressaoRegularPageComponent } from './page/expressao-regular-page/exp
 import { AutomatoPageComponent } from './page/automato-page/automato-page.component';
 import { DeterminizacaoPageComponent } from './page/determinizacao-page/determinizacao-page.component';
 import { FileListComponent } from './components/file-list/file-list.component';
+import { AnalizadorLexicoPageComponent } from './page/analizador-lexico-page/analizador-lexico-page.component';
 
 
 const dbConfig: DBConfig = {
@@ -37,6 +38,7 @@ const dbConfig: DBConfig = {
     AutomatoPageComponent,
     DeterminizacaoPageComponent,
     FileListComponent,
+    AnalizadorLexicoPageComponent,
   ],
   imports: [
     BrowserModule,

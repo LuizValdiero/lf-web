@@ -42,30 +42,46 @@ export const isAFD = (af: AF): boolean => {
   return ok
 }
 
-export const compute = (af: AF, input: string): boolean => {
+export const compute = (af: AF, input: string): StateAF => {
   const productions: ProductionMap = productionToMap(af.productions)
-  if(!isAFD(af)) {
-    return computeWord(productions, af.start, af.final, input)
-  } else {
-    const afd: AF = transformAfToDeterministic(af, productions)
-    return computeWord(productionToMap(afd.productions), afd.start, afd.final, input)
+  const result = computeWord(productions, af.start, af.final, input)
+  if (result) {
+    return result
   }
+  throw new Error(`Not compute ${input}`)
 }
 
-const computeWord = ( productions: ProductionMap, state: StateAF, final: StateAF[], input: string): boolean => {
+const computeWord = ( productions: ProductionMap, state: StateAF, final: StateAF[], input: string): StateAF | undefined => {
   if (input.length==0) {
-    return final.includes(state)
+    if(final.includes(state)) {
+      return state
+    } else {
+      return undefined
+    }
   }
   const next = input[0], rest = input.substring(1)
   const states = productions.get(state)?.get(next)
   if (states) {
     for (let nextState of states) {
-      if (computeWord(productions, nextState, final, rest)) {
-        return true
+      const res = computeWord(productions, nextState, final, rest)
+      if (res) {
+        return res
       }
     }
   }
-  return false
+  return undefined
+}
+
+export const copyAf = (af: AF): AF => {
+  return {
+    name: af.name,
+    alphabet: [...af.alphabet],
+    states: [...af.states],
+    start: af.start,
+    final: [...af.final],
+    productions: af.productions.map(([[head, alph],target]) => [[head, alph], [...target]])
+  }
+
 }
 
 export const determineAf = (af: AF): AF => {
@@ -196,31 +212,28 @@ export const renameAf = (af: AF, prefix: string): AF => {
 const renameState = (state: StateAF, statesMap: Map<StateAF,StateAF>) => statesMap.get(state) || ''
 
 export const joinAf = (af1: AF, af2: AF): AF => {
-  const af1Renamed = renameAf(af1, '0q')
-  const af2Renamed = renameAf(af2, '1q')
 
   const alphabet = [
-    ...(new Set([...af1Renamed.alphabet, ...af2Renamed.alphabet,  '&']))
+    ...(new Set([...af1.alphabet, ...af2.alphabet,  '&']))
   ]
 
   const initialState: StateAF = 'q0'
   const finalStates: StateAF[] = ['f']
-  const states: StateAF[] = [initialState, ...finalStates, ...af1Renamed.states, ...af2Renamed.states]
+  const states: StateAF[] = [initialState, ...finalStates, ...af1.states, ...af2.states]
 
-  let productions: Production[] = [
-    [[initialState, '&'],[af1Renamed.start]],
-    [[initialState, '&'],[af2Renamed.start]],
-    ...af1Renamed.productions, ...af2Renamed.productions,
-    ...(af1Renamed.final.map<Production>(state => [[state,'&'],[...finalStates]])),
-    ...(af2Renamed.final.map<Production>(state => [[state,'&'],finalStates]))
+  const productions: Production[] = [
+    ...af1.productions, ...af2.productions,
+    [[initialState, '&'],[af1.start, af2.start]],
+    ...(af1.final.map<Production>(state => [[state,'&'],[...finalStates]])),
+    ...(af2.final.map<Production>(state => [[state,'&'],[...finalStates]]))
   ]
 
   return {
-    name: `${af1Renamed.name}_${af2Renamed.name}`,
+    name: `${af1.name}_${af2.name}`,
     alphabet,
     states,
     start: initialState,
     final: finalStates,
-    productions
+    productions: productions
   }
 }
