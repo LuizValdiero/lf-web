@@ -15,6 +15,7 @@ import { DeterminizacaoPageComponent } from './page/determinizacao-page/determin
 import { FileListComponent } from './components/file-list/file-list.component';
 import { AnalizadorLexicoPageComponent } from './page/analizador-lexico-page/analizador-lexico-page.component';
 import { GeradorAnalizadorLexicoPageComponent } from './page/gerador-analizador-lexico-page/gerador-analizador-lexico-page.component';
+import { GeradorAnalizadorSintaticoPageComponent } from './page/gerador-analizador-sintatico-page/gerador-analizador-sintatico-page.component';
 
 
 const dbConfig: DBConfig = {
@@ -42,6 +43,7 @@ const dbConfig: DBConfig = {
     FileListComponent,
     AnalizadorLexicoPageComponent,
     GeradorAnalizadorLexicoPageComponent,
+    GeradorAnalizadorSintaticoPageComponent,
   ],
   imports: [
     BrowserModule,

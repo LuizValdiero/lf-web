@@ -9,6 +9,7 @@ export class MenuComponent implements OnInit {
 
   showTools:boolean = false
   showLA:boolean = false
+  showSA: boolean = false
 
   constructor() { }
 
@@ -21,5 +22,9 @@ export class MenuComponent implements OnInit {
 
   openCloseLA = () => {
     this.showLA = !this.showLA
+  }
+
+  openCloseSA = () => {
+    this.showSA = !this.showSA
   }
 }

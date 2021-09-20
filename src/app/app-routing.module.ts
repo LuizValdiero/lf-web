@@ -5,13 +5,15 @@ import { AutomatoPageComponent } from './page/automato-page/automato-page.compon
 import { DeterminizacaoPageComponent } from './page/determinizacao-page/determinizacao-page.component';
 import { ExpressaoRegularPageComponent } from './page/expressao-regular-page/expressao-regular-page.component';
 import { GeradorAnalizadorLexicoPageComponent } from './page/gerador-analizador-lexico-page/gerador-analizador-lexico-page.component';
+import { GeradorAnalizadorSintaticoPageComponent } from './page/gerador-analizador-sintatico-page/gerador-analizador-sintatico-page.component';
 
 const routes: Routes = [
   { path: '', component: ExpressaoRegularPageComponent },
   { path: 'af', component: AutomatoPageComponent },
   { path: 'af/determinizacao', component: DeterminizacaoPageComponent },
   { path: 'la', component: AnalizadorLexicoPageComponent },
-  { path: 'la/generate', component: GeradorAnalizadorLexicoPageComponent }
+  { path: 'la/generate', component: GeradorAnalizadorLexicoPageComponent },
+  { path: 'sa/generate', component: GeradorAnalizadorSintaticoPageComponent }
 ];
 
 @NgModule({

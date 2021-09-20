@@ -25,3 +25,12 @@
   </a>
 </div>
 
+<a (click)="openCloseSA()">
+  Análise Sintática
+</a>
+<div *ngIf="showSA">
+  <a [routerLink]="'/sa/generate'">
+    Gerar Análisador Síntatico
+  </a>
+</div>
+
