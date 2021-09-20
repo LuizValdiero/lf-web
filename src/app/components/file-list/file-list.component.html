@@ -5,7 +5,7 @@
 <ul>
   <li *ngFor="let file of files, let i = index">
     <span style="text-overflow: ellipsis; width: 6em; overflow: hidden;">
-      {{file.name}}
+      {{file.type.toString().toUpperCase()}}:{{file.name}}
     </span>
     <section>
       <button ngxClipboard [cbContent]="file.file" (click)="delete(file) && remove(i)">

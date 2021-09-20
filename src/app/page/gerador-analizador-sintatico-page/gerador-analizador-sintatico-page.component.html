@@ -1,0 +1,62 @@
+<form [formGroup]="form" (ngSubmit)="createSA()">
+  <h1>União de autômato</h1>
+  <div class="automato-input-container">
+    <div>
+      <h3>GLC:</h3>
+      <textarea formControlName="glc"></textarea>
+      <button type="button" (click)="saveGLC(form.value.glc)" [disabled]="form.value.glc.valid">
+        <fa-icon icon="save"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <section class="buttons-container">
+    <button type="submit" [disabled]="!form.valid">
+      Gerar analisador sintático
+    </button>
+  </section>
+</form>
+<div>
+  <table *ngIf="lr1Table">
+    <tr>
+      <th [rowSpan]="2">Estado</th>
+      <th [colSpan]="action.length">
+        Ação
+      </th>
+      <th [colSpan]="goto.length">
+        Desvio
+      </th>
+    </tr>
+    <tr>
+      <th *ngFor="let act of action">
+        {{act}}
+      </th>
+      <th *ngFor="let gt of goto">
+        {{gt}}
+      </th>
+    </tr>
+    <tr *ngFor="let I of (lr1Table ? lr1Table.c: [])">
+      <td>{{I.i}}</td>
+      <td *ngFor="let act of action">
+        {{showAction(lr1Table?.action?.get(I.i)?.get(act))}}
+      </td>
+      <td *ngFor="let gt of goto">
+        {{lr1Table?.goto?.get(I.i)?.get(gt)}}
+      </td>
+    </tr>
+  </table>
+</div>
+<form [formGroup]="formCompute" (ngSubmit)="computeWord()">
+  <h1>Executar parser</h1>
+  <div class="automato-input-container">
+    <div>
+      <h3>Entrada</h3>
+      <textarea formControlName="word"></textarea>
+    </div>
+  </div>
+  <section class="buttons-container">
+    <button type="submit" [disabled]="!formCompute.valid || lr1Table === undefined">
+      computar
+    </button>
+  </section>
+</form>
+<textarea [(ngModel)]="output"></textarea>

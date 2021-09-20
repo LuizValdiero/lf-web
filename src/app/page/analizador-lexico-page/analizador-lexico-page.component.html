@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="createLA()">
+  <h1>União de autômato</h1>
+  <div class="automato-input-container">
+    <div>
+      <h3>Definições da linguagem (json):</h3>
+      <textarea formControlName="definitions"></textarea>
+      <button type="button" (click)="saveDefinitions(form.value.definitions)" [disabled]="form.value.definitions.valid">
+        <fa-icon icon="save"></fa-icon>
+      </button>
+    </div>
+    <div>
+      <h3>Código Fonte</h3>
+      <textarea formControlName="code"></textarea>
+      <button type="button" (click)="saveCode(form.value.code)" [disabled]="form.value.code.valid">
+        <fa-icon icon="save"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <section class="buttons-container">
+    <button type="submit" [disabled]="!form.valid">
+      Analisar
+    </button>
+  </section>
+</form>
+<textarea [(ngModel)]="outputTS"></textarea>
+<textarea [(ngModel)]="outputLS"></textarea>
+<section class="buttons-container">
+  <button (click)="saveLa()" [disabled]="la === ''">
+    <fa-icon icon="save"></fa-icon>
+  </button>
+</section>

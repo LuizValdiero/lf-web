@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AF } from 'src/app/models/automato';
+import { EntityType } from 'src/app/models/entity-type';
 import { AfParserService } from 'src/app/services/af-parser.service';
 import { ConvertErToAfService } from 'src/app/services/convert-er-to-af.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -38,11 +39,11 @@ export class ExpressaoRegularPageComponent implements OnInit {
 
   saveAF(data: string) {
     const name = data.split('\n')[0]
-    this.storageService.submitData(name, data)
+    this.storageService.submitData(name, data, EntityType.Af)
   }
 
   saveER(data: string) {
     const name = `ER: ${data}`
-    this.storageService.submitData(name, data)
+    this.storageService.submitData(name, data, EntityType.Er)
   }
 }

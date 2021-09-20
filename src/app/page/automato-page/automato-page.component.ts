@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AF, joinAf } from 'src/app/models/automato';
+import { AF, joinAf, renameAf } from 'src/app/models/automato';
+import { EntityType } from 'src/app/models/entity-type';
 import { AfParserService } from 'src/app/services/af-parser.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -56,14 +57,17 @@ export class AutomatoPageComponent implements OnInit {
     const af1: AF = this.afParser.parse(af1Str)
     const af2: AF = this.afParser.parse(af2Str)
 
-    const afOutput: AF = joinAf(af1, af2)
+    const af1Renamed = renameAf(af1, '1q')
+    const af2Renamed = renameAf(af2, '2q')
+
+    const afOutput: AF = joinAf(af1Renamed, af2Renamed)
 
     this.output = this.afParser.valueOf(afOutput)
   }
 
   save(save: string) {
     const name = save.split('\n')[0]
-    this.storageService.submitData(name, save)
+    this.storageService.submitData(name, save, EntityType.Af)
   }
 
 }

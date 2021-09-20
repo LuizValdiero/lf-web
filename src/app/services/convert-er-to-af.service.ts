@@ -12,8 +12,7 @@ export class ConvertErToAfService {
 
   constructor(private readonly parserErService: ParserErService) { }
 
-  convertToAFD = (er: string): AF => {
-    const alph: Set<Alphabet> = new Set()
+  public convertToAFD = (er: string): AF => {
 
     const [root, listT] :[root: TreeNode, listT: TreeNode[]] = this.parserErService.valueOf(er)
     this.handle(root, listT)
@@ -30,11 +29,7 @@ export class ConvertErToAfService {
     const productions: Production[] = []
 
     while (statesUnmarked.length > 0) {
-      const iii = statesUnmarked.length
       const state = statesUnmarked.pop()
-      if (iii === statesUnmarked.length) {
-        throw new Error('error to pop')
-      }
       if (state) {
         states.push(state)
         const statesFollow = this.getStatesList(listT, state.split(''))
@@ -72,42 +67,30 @@ export class ConvertErToAfService {
     return renameAf(afd,'q')
   }
 
-  createProduction = (head: DState, alphabet: Alphabet ,state: DState): Production => {
+  private createProduction = (head: DState, alphabet: Alphabet ,state: DState): Production => {
     return [[head, alphabet], [state]]
   }
 
-  createDState = (list: number[]): DState => {
+  private createDState = (list: number[]): DState => {
     return list.sort().join('')
   }
 
-  getFinals = (states: StateAF[], accept: number): StateAF[] => {
+  private getFinals = (states: StateAF[], accept: number): StateAF[] => {
     const finals = states.filter(s => s.split('')[s.length-1] === `${accept}`)
     return finals
   }
 
-  getFollowPos = (nodes: number[], list: TreeNode[]): number[] => {
-    let follows: number[] = []
-    list.filter((n) => {
-      return n.position != undefined && nodes.includes(n.position)
-    }).forEach((n) => {
-      if(n.props) {
-        follows = this.joinPos(follows, n.props.followPos)
-      }
-    })
-    return follows
-  }
-
-  getStatesList(states: TreeNode[], positions: String[]): TreeNode[] {
+  private getStatesList(states: TreeNode[], positions: String[]): TreeNode[] {
     return positions.map((i) => states[+i])
   }
 
-  getAlphabet = (list: TreeNode[]): string[] => {
+  private getAlphabet = (list: TreeNode[]): string[] => {
     const alphabetList: string[] = list.map((node: TreeNode) => node.key).filter((key: string) => key !== '#')
     const withoutRepeated = [...(new Set<string>(alphabetList))]
     return withoutRepeated
   }
 
-  handle = (n: TreeNode, list: TreeNode[]) => {
+  private handle = (n: TreeNode, list: TreeNode[]) => {
     if (n === undefined) throw new Error('to handle n === epsilon')
     if (n.key === operatorEr.alt ) {
       this.nodeAltHandle(n, list)
@@ -120,7 +103,7 @@ export class ConvertErToAfService {
     }
   }
 
-  nodeCatHandle = (n: TreeNode, list: TreeNode[]) => {
+  private nodeCatHandle = (n: TreeNode, list: TreeNode[]) => {
     if (n.childs && n.childs.length === 2) {
       const c1 = n.childs[0]
       const c2 = n.childs[1]
@@ -138,7 +121,6 @@ export class ConvertErToAfService {
 
           }
         })
-        if(c1.props.lastPos.includes, list)
         n.props = {
           nullable,
           firstPos,
@@ -150,7 +132,7 @@ export class ConvertErToAfService {
 
   }
 
-  nodeAltHandle = (n: TreeNode, list: TreeNode[]) => {
+  private nodeAltHandle = (n: TreeNode, list: TreeNode[]) => {
     if (n.childs && n.childs.length === 2) {
       const c1 = n.childs[0]
       const c2 = n.childs[1]
@@ -168,7 +150,7 @@ export class ConvertErToAfService {
 
   }
 
-  nodeRepHandle = (n: TreeNode, list: TreeNode[]) => {
+  private nodeRepHandle = (n: TreeNode, list: TreeNode[]) => {
     if (n.childs && n.childs.length === 1) {
       const c1 = n.childs[0]
       this.handle(c1, list)
@@ -189,7 +171,7 @@ export class ConvertErToAfService {
     } else throw new Error(`Invalid node: ${JSON.stringify(n)}`)
   }
 
-  nodeAlphabetHandle = (n: TreeNode, list: TreeNode[]) => {
+  private nodeAlphabetHandle = (n: TreeNode, list: TreeNode[]) => {
     if (n.position !== undefined) {
       n.props = {
         nullable: false,

@@ -27,6 +27,46 @@ Run: npm i && ng serve
 
 ---
 
+## T2
+
+- [ ] Leitura de uma GLC
+
+- [x] First de uma GLC
+
+- [x] Follow de uma GLC
+
+- [ ] Algoritmo LR Canônico (conforme livro do Aho) (page 107)
+
+- [ ] Table de analise sintática
+
+### LR Canonico
+
+Lista de produções, add prod s'
+
+Calcula first e follow
+
+--
+
+Bottom-Up: deterministico ->
+Familia LR
+Precedência: Operadores, Simples, Estendida
+
+--
+
+Para a construção de um gerador de analisador sintático são necessários os seguintes
+algoritmos (Parte II do trabalho), a depender do algoritmo de análise implementado:
+
+- Se preditivo LL(1): Eliminação de recursão à esquerda, Fatoração, Cálculo de First e Follow, Geração da tabela de análise; Autômato de pilha para análise de sentenças
+- Se LR Canônico: Cálculo de First e Follow, Algoritmos correspondentes ao analisador LR Canônico (conforme livro do Aho).
+  
+A interface de projeto deve **receber e validar a Gramática Livre de Contexto** que descreve a linguagem, identificando terminais (tokes) e não terminais. O fluxo de execução da segunda parte é o seguinte:
+
+- Leitura token a token do arquivo resultante da parte 1
+- Uso da tabela de análise para validação da sentença de entrada
+- Saída: Mensagem validando ou invalidando o código
+
+--
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
 
 ## Development server
