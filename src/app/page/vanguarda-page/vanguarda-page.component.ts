@@ -14,7 +14,7 @@ import { LexicalAnalyzerService } from 'src/app/services/lexical-analyzer.servic
 })
 export class VanguardaPageComponent implements OnInit {
   glcStr = 'S -> ROW  \nROW -> IF \nROW -> IF ROW \nSCOP -> { ROW } \nSCOP -> { } \nIF -> if COND SCOP ELSE  \nIF -> if COND SCOP  \nELSE -> else SCOP \nCOND -> COMP  \nCOND -> true  \nCOND -> false  \nCOMP -> num op-cmp num '
-  expressionsStr = '[{"id": "if", "expression": "if"}, {"id": "else", "expression": "else"}, {"id": "{", "expression": "{"}, {"id": "}", "expression": "}"}, {"id": "false", "expression": "false"}, {"id": "true", "expression": "true"}, {"id": "num", "expression": "(0|(1|(2|3)))*"}, {"id": "op-cmp", "expression": "(==|!=)"}]'
+  expressionsStr = '[\n  {\n    "id": "if", \n    "expression": "if"\n  }, \n  {\n    "id": "else", \n    "expression": "else"\n  }, \n  {\n    "id": "{", \n    "expression": "{"\n  }, \n  {\n    "id": "}", \n    "expression": "}"\n  }, \n  {\n    "id": "false", \n    "expression": "false"\n  },\n  {\n    "id": "true", \n    "expression": "true"\n  },\n  {\n    "id": "num", \n    "expression": "(0|(1|(2|3)))*"\n  },\n  {\n    "id": "op-cmp", \n    "expression": "(==|!=)"\n  }\n]'
 
   code = 'if 12120 == 2 { if true { } else { } } if false { }'
 
