@@ -14,10 +14,10 @@ import { LexicalAnalyzerService } from 'src/app/services/lexical-analyzer.servic
   styleUrls: ['./vanguarda-page.component.scss']
 })
 export class VanguardaPageComponent implements OnInit {
-  glcStr = 'S -> ROW \nROW -> IF \nIF -> if { } ELSE \nELSE -> & \nELSE -> else { }'
-  expressionsStr = '[{"id": "if", "expression": "if"}, {"id": "else", "expression": "else"}, {"id": "{", "expression": "{"}, {"id": "}", "expression": "}"}]'
+  glcStr = 'S -> ROW \nROW -> IF \nCOND -> COMP \nCOND -> true \nCOND -> false \nCOMP -> num op-cmp num \nIF -> if COND { } ELSE \nELSE -> & \nELSE -> else { }'
+  expressionsStr = '[{"id": "if", "expression": "if"}, {"id": "else", "expression": "else"}, {"id": "{", "expression": "{"}, {"id": "}", "expression": "}"}, {"id": "false", "expression": "false"}, {"id": "true", "expression": "true"}, {"id": "num", "expression": "(0|(1|(2|3)))"}, {"id": "op-cmp", "expression": "(==|!=)"}]'
 
-  code = 'if { } else { }'
+  code = 'if 0 == 2 { } else { }'
 
   la: LA | undefined
   outputTS: {key: string, values: string[]}[] = []

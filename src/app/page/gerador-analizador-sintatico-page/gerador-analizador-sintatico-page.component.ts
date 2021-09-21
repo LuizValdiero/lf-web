@@ -13,13 +13,11 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./gerador-analizador-sintatico-page.component.scss']
 })
 export class GeradorAnalizadorSintaticoPageComponent implements OnInit {
-  glc2 = 'S -> A B C \nA -> a A \nA -> & \nB -> b B \nB -> A C d \nC -> c C \nC -> &'
-  glc3 = 'S -> A b \nS -> A B c \nB -> b B  \nB -> A d  \nB -> &  \nA -> a A \nA -> &'
-  glc4 = 'S -> C C \nC -> c C \nC -> d'
-  glc1 = this.glc4
+  glc3 = 'S -> A B \nB -> b B  \nB -> d  \nA -> a A \nA -> a'
+  glc1 = this.glc3
 
 
-  word = 'c d d'
+  word = 'a b d'
   result = ''
   log: {text: string} = {text:''}
 
@@ -59,7 +57,8 @@ export class GeradorAnalizadorSintaticoPageComponent implements OnInit {
 
     const first: FirstMap = this.firstFollowService.createFirsts(glc)
     const follow: FollowMap = this.firstFollowService.createFollows(glc, first) // fix: follow com problema
-
+    console.log('first',Array.from(first).map(([key, values]) => { return {key, values} }))
+    console.log('follow',Array.from(follow).map(([key, values]) => { return {key, values} }))
     this.lr1Table = this.lr1GeneratorService.createTableLR1(glc, first, follow)
     this.action = [...this.lr1Table.lr1.glc.terminals, END ]
     this.goto = [...this.lr1Table.lr1.glc.nonTerminals]

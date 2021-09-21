@@ -179,7 +179,7 @@ export class LR1GeneratorService {
   private calculateLookAHead = (item: ItemLR, firstMap: FirstMap): Terminal[] => {
     let lookAHead = [item.lookAHead]
     if (item.position+1 < item.production.body.length) {
-      const first = firstMap.get(item.production.body[item.position])
+      const first = firstMap.get(item.production.body[item.position+1])
       if(first) {
         if(first?.has(Epsilon)) {
           first.add(item.lookAHead)
