@@ -41,7 +41,7 @@ export class VanguardaPageComponent implements OnInit {
     }
   )
 
-  output: string = ''
+  log: { text: string } = { text: ''}
   result: string = ''
 
   constructor(
@@ -54,27 +54,34 @@ export class VanguardaPageComponent implements OnInit {
   }
 
   createAnaliser = () => {
+    this.log.text = '', this.outputTS = [], this.outputLS = [], this.lr1Table = undefined
     const glcStr: string = this.form.value.glc
     const expresssionsStr: string = this.form.value.expressions
+    try {
+      this.la = this.createLA(expresssionsStr)
 
-    this.la = this.createLA(expresssionsStr)
+      this.lr1Table = this.createSA(glcStr)
 
-    this.lr1Table = this.createSA(glcStr)
-
-    this.action = [...this.lr1Table.lr1.glc.terminals, END ]
-    this.goto = [...this.lr1Table.lr1.glc.nonTerminals]
+      this.action = [...this.lr1Table.lr1.glc.terminals, END ]
+      this.goto = [...this.lr1Table.lr1.glc.nonTerminals]
+    } catch(e) {
+      this.log.text += '\n' + e
+    }
   }
 
 
   compute = () => {
     const code: string = this.formCompile.value.code
     if (this.la === undefined ) {
-      throw new Error('la not found')
+      const msgError = 'la not found'
+      this.log.text += '\nError: ' + msgError
+      throw new Error(msgError)
     }
     if (this.lr1Table === undefined ) {
-      throw new Error('lr1 table not found')
+      const msgError = 'lr1 table not found'
+      this.log.text += '\nError: ' + msgError
+      throw new Error(msgError)
     }
-
     try {
 
       const [ts, ls] = this.analiseLa(this.la, code)
@@ -84,16 +91,18 @@ export class VanguardaPageComponent implements OnInit {
         if (l && l.length > 0) {
           tokens.push(l[0])
         } else {
-          throw new Error(`Error to identify ${t}`)
+          const msgError = `Error to identify ${t}`
+          this.log.text += '\n' + msgError
+          throw new Error(msgError)
         }
       })
       console.log(ts, ls)
-      const log = { text: ''}
 
       this.outputTS = Array.from(ts).map(([key, values]) => { return {key, values} })
       this.outputLS = ls
-      this.result = this.analiseSa(this.lr1Table, tokens, log)
+      this.result = this.analiseSa(this.lr1Table, tokens, this.log)
     } catch (e) {
+      this.log.text += '\n' + e
       this.result = ''+e
     }
   }
@@ -104,10 +113,14 @@ export class VanguardaPageComponent implements OnInit {
       definitionsList = JSON.parse(expressionJsonStr)
     } catch (error) {
       console.error(error)
-      throw new Error('Parse Json file')
+      const msgError = 'Parse Json file'
+      this.log.text += '\n' + msgError
+      throw new Error(msgError)
     }
     if(!(definitionsList && definitionsList.length > 0)) {
-      throw new Error('Empty definitions')
+      const msgError = 'Empty definitions'
+      this.log.text += '\n' + msgError
+      throw new Error(msgError)
     }
     return this.lexicalAnalizer.create(definitionsList)
   }
@@ -130,7 +143,9 @@ export class VanguardaPageComponent implements OnInit {
     try{
       analize(lr1Table, tokens, log)
     } catch(e) {
-      console.log(e);
+      const msgError = ''+e
+      this.log.text += '\n' + e
+      throw new Error(msgError)
     } finally {
       const r = log.text.split('\n')
       return r[r.length-1]

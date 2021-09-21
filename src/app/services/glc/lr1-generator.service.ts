@@ -99,6 +99,7 @@ export class LR1GeneratorService {
       })
 
     }
+    console.log(c)
     return c
   }
 
