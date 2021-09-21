@@ -29,15 +29,15 @@ Run: npm i && ng serve
 
 ## T2
 
-- [ ] Leitura de uma GLC
+- [x] Leitura de uma GLC
 
 - [x] First de uma GLC
 
 - [x] Follow de uma GLC
 
-- [ ] Algoritmo LR Canônico (conforme livro do Aho) (page 107)
+- [x] Algoritmo LR Canônico (conforme livro do Aho) (page 107)
 
-- [ ] Table de analise sintática
+- [x] Table de analise sintática
 
 ### LR Canonico
 
