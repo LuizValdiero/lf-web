@@ -7,9 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  showTools:boolean = false
-  showLA:boolean = false
-  showSA: boolean = false
+  showMenu:number = 0
 
   constructor() { }
 
@@ -17,14 +15,14 @@ export class MenuComponent implements OnInit {
   }
 
   openCloseTools = () => {
-    this.showTools = !this.showTools
+    this.showMenu = this.showMenu === 1 ? 0 : 1;
   }
 
   openCloseLA = () => {
-    this.showLA = !this.showLA
+    this.showMenu = this.showMenu === 2 ? 0 : 2;
   }
 
   openCloseSA = () => {
-    this.showSA = !this.showSA
+    this.showMenu = this.showMenu === 3 ? 0 : 3;
   }
 }

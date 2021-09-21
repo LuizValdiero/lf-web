@@ -1,8 +1,8 @@
 <a (click)="openCloseTools()">
   Ferramentas
 </a>
-<div *ngIf="showTools">
-  <a [routerLink]="'/'">
+<div *ngIf="showMenu === 1">
+  <a [routerLink]="'/exp'">
     Converter er em afd
   </a>
   <a [routerLink]="'/af'">
@@ -16,7 +16,7 @@
 <a (click)="openCloseLA()">
   Análise Léxica
 </a>
-<div *ngIf="showLA">
+<div *ngIf="showMenu === 2">
   <a [routerLink]="'/la/generate'">
     Gerar Análisador Léxico
   </a>
@@ -28,9 +28,13 @@
 <a (click)="openCloseSA()">
   Análise Sintática
 </a>
-<div *ngIf="showSA">
+<div *ngIf="showMenu === 3">
   <a [routerLink]="'/sa/generate'">
     Gerar Análisador Síntatico
   </a>
 </div>
+
+<a [routerLink]="'/vanguarda'">
+  Compilador: vanguarda
+</a>
 

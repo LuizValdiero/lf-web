@@ -1,5 +1,3 @@
-import { JsonPipe } from "@angular/common"
-
 export type NonTerminal = string
 export type Terminal = string
 export type Token = Terminal | NonTerminal
@@ -84,46 +82,55 @@ export const wasEqualsItemLR = (item1: ItemLR, item2: ItemLR): boolean => {
     && item1.lookAHead === item2.lookAHead
 }
 
-export const analize = (lr1Table: LR1Table, code: string[]): string => {
+export const analize = (lr1Table: LR1Table, code: string[], log: { text:string}): void => {
   const actionMap = lr1Table.action, gotoMap = lr1Table.goto, prodList = lr1Table.lr1.glc.productions
   const queue: any[] = [0]
   const w = [...code, END]
   let w1 = 0
 
   let accept = false
-  const log: string[] = []
-  console.log('ok ' + JSON.stringify(w) +' '+ w1)
+  log.text += `\nlog:`
   while (!accept) {
     const q = queue[queue.length-1]
     const t = w[w1]
-    const step = `pilha: ${q}, entrada: ${[...w].splice(w1)}, acao: `
+    log.text += `\npilha: ${queue}, entrada: ${[...w].splice(w1)}, `
     const action = actionMap.get(q)?.get(t)
     if (action) {
+      log.text += `acao: `
       if(action.action === ActionType.ACCEPT) {
-        log.push(step + action.action)
+        log.text += action.action
         accept = true
         break;
       }
       if(action.action === ActionType.S) {
         queue.push(w[w1++])
         queue.push(action.i)
-        log.push(step + action.action+ action.i)
+        log.text += action.action+ action.i
         continue
       }
       if(action.action === ActionType.R) {
         const body = [...prodList[action.i].body]
         while (body.length > 0) {
           queue.pop()
+          queue.pop()
           body.pop()
         }
-        const goto = gotoMap.get(q)?.get(t)
-        if (goto) {
-          queue.push(goto)
-          continue
-        }
+
+        log.text += action.action+ action.i
+        const tt = prodList[action.i].head
+        queue.push(tt)
+        continue
       }
     }
-    throw new Error(`${w[w1]}: token ${w1}`)
+    const goto = gotoMap.get(queue[queue.length-2])?.get(q)
+    if (goto) {
+      queue.push(goto)
+      log.text += 'goto: ' + goto
+      continue
+    }
+    const msgError = `Error: token ${w1+1}: ( ${w[w1]} )`
+    log.text += `\n${msgError}`
+    throw new Error(msgError)
   }
-  return log.join('\n')
+  log.text += '\nAceita'
 }

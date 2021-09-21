@@ -75,6 +75,7 @@ const makeAFND2 = (): AF => {
 }
 
 describe('Automato', () => {
+  /*
   it('should create an instance', () => {
     const af: AF = makeAFD()
     const map = new Map<[StateAF,Alphabet], StateAF[]>(af.productions)
@@ -144,4 +145,5 @@ describe('Automato', () => {
     expect(afd.final).toEqual(expected.final)
     expect(afd.productions).toEqual(expected.productions)
   })
+  */
 });

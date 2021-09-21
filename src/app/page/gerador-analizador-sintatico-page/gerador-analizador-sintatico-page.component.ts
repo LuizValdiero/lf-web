@@ -13,15 +13,17 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./gerador-analizador-sintatico-page.component.scss']
 })
 export class GeradorAnalizadorSintaticoPageComponent implements OnInit {
-  glc2 = 'S -> A B C \n A -> a A \n A -> & \n B -> b B \n B -> A C d \n C -> c C \n C -> &'
-  glc3 = 'S -> A b \n S -> A B c \n B -> b B  \n B -> A d  \n B -> &  \n A -> a A \n A -> &'
-  glc4 = 'S -> C C \n C -> c C \n C -> d'
+  glc2 = 'S -> A B C \nA -> a A \nA -> & \nB -> b B \nB -> A C d \nC -> c C \nC -> &'
+  glc3 = 'S -> A b \nS -> A B c \nB -> b B  \nB -> A d  \nB -> &  \nA -> a A \nA -> &'
+  glc4 = 'S -> C C \nC -> c C \nC -> d'
   glc1 = this.glc4
 
-  lr1Table: LR1Table | undefined;
 
   word = 'c d d'
+  result = ''
+  log: {text: string} = {text:''}
 
+  lr1Table: LR1Table | undefined;
   action: string[] = []
   goto: NonTerminal[] = []
 
@@ -62,24 +64,22 @@ export class GeradorAnalizadorSintaticoPageComponent implements OnInit {
     this.action = [...this.lr1Table.lr1.glc.terminals, END ]
     this.goto = [...this.lr1Table.lr1.glc.nonTerminals]
 
-
-
   }
 
   computeWord = () => {
-    console.log('computeWord')
     try{
-      console.log(this.formCompute)
       const word: string = this.formCompute.value.word
       if (this.lr1Table && word !== undefined) {
         const tokens = word.trim().split(' ').map((t: string) => ParserGLC.removeEmptySpaces(t)).filter((t: string) => t !=='')
-        this.output = analize(this.lr1Table, tokens)
+        analize(this.lr1Table, tokens, this.log)
       } else {
         console.log(this.lr1Table, word)
       }
     } catch(e) {
       console.log(e);
-      this.output = JSON.stringify(e)
+    } finally {
+      const r = this.log.text.split('\n')
+      this.result = r[r.length-1]
     }
   }
 
@@ -91,13 +91,6 @@ export class GeradorAnalizadorSintaticoPageComponent implements OnInit {
   saveLR1Table(save: string) {
     const name = 'lr1-table'
     this.storageService.submitData(name, save, EntityType.Lr1Table)
-  }
-
-
-  private parseMapToString = (title: string, map: Map<string, Set<string>>): string => {
-    let text = ''
-    map.forEach((value, key) => text = text + `${title} (${key}): ${JSON.stringify([...value])} \n`)
-    return text;
   }
 
   showAction = (obj: {i: number, action: string} | undefined): string => {

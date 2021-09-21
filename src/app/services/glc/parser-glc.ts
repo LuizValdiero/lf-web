@@ -39,7 +39,7 @@ export class ParserGLC {
       initial,
       productions,
       nonTerminals,
-      terminals: [...symbols].filter(t => !nonTerminals.includes(t) && t !== Epsilon)
+      terminals: [...symbols].filter(t => !nonTerminals.includes(t))
     }
     console.log(JSON.stringify(glc))
     return glc;

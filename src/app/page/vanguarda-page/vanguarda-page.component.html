@@ -1,0 +1,118 @@
+<form [formGroup]="form" (ngSubmit)="createAnaliser()">
+  <h1>Compilador: fase da vanguarda</h1>
+  <div class="automato-input-container">
+    <div>
+      <h3>GLC (estrutura da linguagem):</h3>
+      <textarea formControlName="glc"></textarea>
+    </div>
+    <div>
+      <h3>Definições dos tokens (json)</h3>
+      <textarea formControlName="expressions"></textarea>
+    </div>
+  </div>
+  <section class="buttons-container">
+    <button type="submit" [disabled]="!form.valid">
+      Criar analizador
+    </button>
+    <button type="button" [routerLink]='"."' fragment="lr1table-local" *ngIf="lr1Table !== undefined">
+      tabela LR(1)
+    </button>
+  </section>
+</form>
+<form [formGroup]="formCompile" (ngSubmit)="compute()">
+  <div>
+    <h3>Código de entrada:</h3>
+    <textarea formControlName="code"></textarea>
+    <h5 *ngIf="result!==''">{{result}}</h5>
+  </div>
+  <section class="buttons-container">
+    <button type="submit" [disabled]="lr1Table === undefined || la === undefined">
+      Compilar
+    </button>
+    <button type="button" [routerLink]='"."' fragment="la-local" *ngIf="outputTS && outputTS.length > 0">
+      tabela A-Lexica
+    </button>
+  </section>
+</form>
+<textarea [(ngModel)]="output"></textarea>
+<div>
+  <section style="overflow: auto;">
+    <div id="lr1table-local" *ngIf="lr1Table">
+      <caption style="display: block;">
+        <h4>Tabela LR(1)</h4>
+      </caption>
+      <table>
+        <tr>
+          <th [rowSpan]="2">Estado</th>
+          <th [colSpan]="action.length">
+            Ação
+          </th>
+          <th [colSpan]="goto.length">
+            Desvio
+          </th>
+        </tr>
+        <tr>
+          <th *ngFor="let act of action">
+            {{act}}
+          </th>
+          <th *ngFor="let gt of goto">
+            {{gt}}
+          </th>
+        </tr>
+        <tr *ngFor="let I of (lr1Table ? lr1Table.c: [])">
+          <td>{{I.i}}</td>
+          <td *ngFor="let act of action">
+            {{showAction(lr1Table?.action?.get(I.i)?.get(act))}}
+          </td>
+          <td *ngFor="let gt of goto">
+            {{lr1Table?.goto?.get(I.i)?.get(gt)}}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </section>
+  <section *ngIf="outputTS && outputTS.length > 0">
+    <h3>Análise Léxica</h3>
+    <div id="la-local" class="automato-input-container">
+      <div>
+        <table>
+          <tr>
+            <th [colSpan]="2">
+              <h3>Tabela de símbolos</h3>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Token
+            </th>
+            <th>
+              tipo
+            </th>
+          </tr>
+          <tr *ngFor="let itemTs of outputTS">
+            <td>
+              {{itemTs.key}}
+            </td>
+            <td>
+              {{itemTs.values}}
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <table>
+          <tr>
+            <th>
+              <h3>Lista de símbolos</h3>
+            </th>
+          </tr>
+          <tr *ngFor="let itemls of outputLS">
+            <td>
+              {{itemls}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
