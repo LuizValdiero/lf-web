@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Epsilon } from 'src/app/models/automato';
 import { LA, TokenDefinition } from 'src/app/models/er';
 import { ActionType, analize, END, FirstMap, FollowMap, Gramatica, LR1Table, NonTerminal } from 'src/app/models/gramatica';
 import { FirstFollowGLCService } from 'src/app/services/glc/first-follow-glc.service';
@@ -14,10 +13,10 @@ import { LexicalAnalyzerService } from 'src/app/services/lexical-analyzer.servic
   styleUrls: ['./vanguarda-page.component.scss']
 })
 export class VanguardaPageComponent implements OnInit {
-  glcStr = 'S -> ROW \nROW -> IF \nCOND -> COMP \nCOND -> true \nCOND -> false \nCOMP -> num op-cmp num \nIF -> if COND { } ELSE \nELSE -> & \nELSE -> else { }'
+  glcStr = 'S -> ROW  \nROW -> IF \nROW -> IF ROW \nSCOP -> { ROW } \nSCOP -> { } \nIF -> if COND SCOP ELSE  \nIF -> if COND SCOP  \nELSE -> else SCOP \nCOND -> COMP  \nCOND -> true  \nCOND -> false  \nCOMP -> num op-cmp num '
   expressionsStr = '[{"id": "if", "expression": "if"}, {"id": "else", "expression": "else"}, {"id": "{", "expression": "{"}, {"id": "}", "expression": "}"}, {"id": "false", "expression": "false"}, {"id": "true", "expression": "true"}, {"id": "num", "expression": "(0|(1|(2|3)))*"}, {"id": "op-cmp", "expression": "(==|!=)"}]'
 
-  code = 'if 12120 == 2 { } else { }'
+  code = 'if 12120 == 2 { if true { } else { } } if false { }'
 
   la: LA | undefined
   outputTS: {key: string, values: string[]}[] = []
