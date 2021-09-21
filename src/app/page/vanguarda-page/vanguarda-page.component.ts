@@ -16,7 +16,7 @@ export class VanguardaPageComponent implements OnInit {
   glcStr = 'S -> ROW  \nROW -> IF \nROW -> IF ROW \nSCOP -> { ROW } \nSCOP -> { } \nIF -> if COND SCOP ELSE  \nIF -> if COND SCOP  \nELSE -> else SCOP \nCOND -> COMP  \nCOND -> true  \nCOND -> false  \nCOMP -> num op-cmp num '
   expressionsStr = '[\n  {\n    "id": "if", \n    "expression": "if"\n  }, \n  {\n    "id": "else", \n    "expression": "else"\n  }, \n  {\n    "id": "{", \n    "expression": "{"\n  }, \n  {\n    "id": "}", \n    "expression": "}"\n  }, \n  {\n    "id": "false", \n    "expression": "false"\n  },\n  {\n    "id": "true", \n    "expression": "true"\n  },\n  {\n    "id": "num", \n    "expression": "(0|(1|(2|3)))*"\n  },\n  {\n    "id": "op-cmp", \n    "expression": "(==|!=)"\n  }\n]'
 
-  code = 'if 12120 == 2 { if true { } else { } } if false { }'
+  code = 'if 12120 == 2 {\n  if true { }\n  else { } \n} \nif false { }'
 
   la: LA | undefined
   outputTS: {key: string, values: string[]}[] = []
